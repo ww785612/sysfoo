@@ -1,34 +1,38 @@
 pipeline {
   agent any
+  stages {
+    stage('build') {
+      steps {
+        echo 'compiling sysfoo app'
+        sh '''
 
-  tools {
-    maven 'Maven 3.6.3'  // this name is what you added earlier to the jenkins
-  }
-
-  stages{
-      stage("build"){
-          steps{
-              echo 'compiling sysfoo app'
-              sh 'mvn compile'    // sh means run a shell command. The shell command can be generated in jen 
-          }
+mvn compile
+echo "shell script hello"'''
       }
-      stage("test"){
-          steps{
-              echo 'running unit tests'
-              sh 'mvn clean test'
-          }
-      }
-      stage("package"){
-          steps{
-              echo 'packaging app into a war file'
-              sh 'mvn package -DskipTests'
-          }
-      }
-  }
-
-  post{
-    always{
-        echo 'This pipeline is completed..'
     }
+
+    stage('test') {
+      steps {
+        echo 'running unit tests'
+        sh 'mvn clean test'
+      }
+    }
+
+    stage('package') {
+      steps {
+        echo 'packaging app into a war file'
+        sh 'mvn package -DskipTests'
+      }
+    }
+
+  }
+  tools {
+    maven 'Maven 3.6.3'
+  }
+  post {
+    always {
+      echo 'This pipeline is completed..'
+    }
+
   }
 }
