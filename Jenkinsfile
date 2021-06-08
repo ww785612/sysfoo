@@ -21,6 +21,7 @@ mvn compile'''
       steps {
         echo 'packaging app into a war file'
         sh 'mvn package -DskipTests'
+        archiveArtifacts 'target/*.war'
       }
     }
 
