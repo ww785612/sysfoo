@@ -6,7 +6,8 @@ pipeline {
         echo 'compiling sysfoo app'
         sh '''
 
-mvn compile'''
+mvn compile
+echo "hello"'''
       }
     }
 
